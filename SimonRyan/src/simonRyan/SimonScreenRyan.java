@@ -1,8 +1,9 @@
-package simonRyan;
+package simon;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
+import gui.Components.Action;
 import gui.Components.ClickableScreen;
 import gui.Components.TextLabel;
 import gui.Components.Visible;
@@ -61,12 +62,64 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 		int numberOfButtons = 2;
 		Color colors = new Color(100,180,255);
 		for(int i = 0; i < numberOfButtons; i++){
-			ButtonInterfaceRyan = 
+			final ButtonInterfaceRyan b = getAButton(); 
+			b.setColor(Color.blue);
+			b.setX(300);
+			b.setY(300);
+			b.setAction(new Action(){
+				public void act(){
+					if(acceptingInput){
+						Thread blink = new Thread(new Runnable(){
+							public void run(){
+								b.highlight();
+								try{
+									Thread.sleep(800);
+									dim();
+									blink.start();
+								}catch(InterruptedException e){
+									e.printStackTrace();
+								}
+								
+								if(b == move.get(sequenceIndex).getButton()){
+									sequenceIndex++;
+									if(sequenceIndex == move.size()){
+										Thread nextRound = new Thread(SimonScreenRyan.this);
+										nextRound.start();
+										viewObjects.add(b);
+									}
+								}else{
+									ProgressInterfaceRyan.gameOver();
+								}
+								
+								
+								
+							}
+
+							private void dim() {
+								
+								
+							}
+						});
+					}
+				}
+			});
 		}
+	}
+
+	private ButtonInterfaceRyan getAButton() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void run() {
+		label.setText("");
+		nextRound();
+	}
+
+	private void nextRound() {
+		acceptingInput = false;
+		roundNumber++;
 		
 	}
 
