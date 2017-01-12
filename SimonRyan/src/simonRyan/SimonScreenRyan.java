@@ -64,8 +64,6 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 							}
 						});
 						buttonPress.start();
-						
-
 						if(acceptingInput && move.get(sequenceIndex).getButton() == b){
 							sequenceIndex++;
 						}else if(acceptingInput){

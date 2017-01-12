@@ -53,7 +53,6 @@ public class Progress extends Component implements ProgressInterfaceRyan {
 			g.setColor(Color.black);
 			g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
 			if(round !=null && sequence != null){
-
 				g.drawString(round, (WIDTH - fm.stringWidth(round))/2, 20);
 				g.drawString(sequence, (WIDTH - fm.stringWidth(sequence))/2, 40);
 			}
