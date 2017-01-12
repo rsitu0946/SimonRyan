@@ -2,6 +2,7 @@ package simonRyan;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 
 import gui.Components.Action;
 import gui.Components.Button;
@@ -9,6 +10,7 @@ import gui.Components.ClickableScreen;
 import gui.Components.TextLabel;
 import gui.Components.Visible;
 import partnerCodeInHerePlease.Buttons;
+import partnerCodeInHerePlease.Move;
 import partnerCodeInHerePlease.Progress;
 
 public class SimonScreenRyan extends ClickableScreen implements Runnable{
@@ -31,7 +33,53 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 
 	@Override
 	public void initAllObjects(ArrayList<Visible> viewObjects) {
-		addButtons();
+		Color[] colors = {Color.red, Color.blue, new Color(240,160,70), new Color(20,255,140), Color.yellow, new Color(180,90,210)};
+		String[] names = {"RED", "BLUE", "ORANGE", "GREEN", "YELLOW", "PURPLE"};
+		int buttonCount = 6;
+		button = new ButtonInterfaceRyan[buttonCount];
+		for(int i = 0; i < buttonCount; i++ ){
+			button[i] = getAButton();
+			button[i].setName(names[i]);
+			button[i].setColor(colors[i]);
+			button[i].setX(160 + (int)(100*Math.cos(i*2*Math.PI/(buttonCount))));
+			button[i].setY(200 - (int)(100*Math.sin(i*2*Math.PI/(buttonCount))));
+			final ButtonInterfaceRyan b = button[i];
+			System.out.println(b+" has x = "+b.getX()+", y ="+b.getY());
+			b.dim();
+			button[i].setAction(new Action() {
+
+				public void act() {
+
+						Thread buttonPress = new Thread(new Runnable() {
+							
+							public void run() {
+								b.highlight();
+								try {
+									Thread.sleep(500);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								b.dim();
+								
+							}
+						});
+						buttonPress.start();
+						
+
+						if(acceptingInput && move.get(sequenceIndex).getButton() == b){
+							sequenceIndex++;
+						}else if(acceptingInput){
+							gameOver();
+							return;
+						}
+						if(sequenceIndex == move.size()){
+							Thread nextRound = new Thread(SimonScreenRyan.this);
+							nextRound.start();
+						}
+					}
+			});
+			viewObjects.add(button[i]);
+		}
 		progress = getProgress();
 		label = new TextLabel(130,230,300,40,"Let's play Simon!");
 		move = new ArrayList<MoveInterfaceRyan>();
@@ -45,70 +93,24 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 	}
 
 	private MoveInterfaceRyan randomMove() {
-		Buttons b;
 		int rand = (int) (Math.random()*button.length);
 		while(rand == lastSelectedButton){
 			rand = (int) (Math.random()*button.length);
 		}
-		b = (Buttons) button[rand];
-		return getMove(b);
+		lastSelectedButton = rand;
+		return new Move(button[rand]);
 	}
 
-	private MoveInterfaceRyan getMove(Buttons b) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	private MoveInterfaceRyan getMove(Buttons b) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	/**
 	Placeholder until partner finishes implementation of ProgressInterface
 	*/
 	private ProgressInterfaceRyan getProgress() {	
 		return new Progress();
-	}
-
-	private void addButtons() {
-		int numberOfButtons = 6;
-		Color[] colors = {Color.red, Color.blue, Color.yellow, Color.green, Color.orange, Color.PINK};
-		String[] names = {"red","blue","yellow","green","orange","pink"};
-		button = new ButtonInterfaceRyan[numberOfButtons];
-		for(int i = 0; i < numberOfButtons; i++){
-			final ButtonInterfaceRyan b = getAButton(); 
-			button[i] = getAButton();
-			button[i].setName(names[i]);
-			button[i].setColor(colors[i]);
-			button[i].setX(300);
-			button[i].setY(300);
-			b.dim();
-			ButtonInterfaceRyan.setAction(new Action(){	
-				public void act(){
-					if(acceptingInput){
-						Thread blink = new Thread(new Runnable(){
-							public void run(){
-								b.highlight();
-								try{
-									Thread.sleep(800);
-								}catch(InterruptedException e){
-									e.printStackTrace();
-								}
-								b.dim();		
-							}	
-						});
-						blink.start();
-						
-						if(b == move.get(sequenceIndex).getButton() && acceptingInput){
-							sequenceIndex++;
-							if(sequenceIndex == move.size()){
-								Thread nextRound = new Thread(SimonScreenRyan.this);
-								nextRound.start();
-								
-							}
-						}else{
-							ProgressInterfaceRyan.gameOver();
-						}
-					}
-				}
-			});
-		}
 	}
 
 	private ButtonInterfaceRyan getAButton() {
@@ -163,7 +165,7 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 	}
 	
 	public void gameOver(){
-	//	progress.gameOver();
+		progress.gameOver();
 	}
 
 }

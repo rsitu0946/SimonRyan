@@ -101,4 +101,9 @@ public class Buttons extends Component implements ButtonInterfaceRyan {
 		
 	}
 
+	@Override
+	public void setAction(Action a) {
+		this.action = a;
+	}
+
 }

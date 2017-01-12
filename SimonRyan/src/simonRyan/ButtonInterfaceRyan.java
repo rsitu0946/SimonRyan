@@ -7,9 +7,7 @@ import gui.Components.Clickable;
 
 public interface ButtonInterfaceRyan extends Clickable {
 	
-	static void setAction(Action a) {
-		
-	}
+	void setAction(Action a);
 
 	void setColor(Color color);
 
@@ -22,6 +20,5 @@ public interface ButtonInterfaceRyan extends Clickable {
 	void setX(int i);
 
 	void setY(int i);
-
 
 }
