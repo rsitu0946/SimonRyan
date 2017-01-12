@@ -9,6 +9,7 @@ import gui.Components.ClickableScreen;
 import gui.Components.TextLabel;
 import gui.Components.Visible;
 import partnerCodeInHerePlease.Buttons;
+import partnerCodeInHerePlease.Progress;
 
 public class SimonScreenRyan extends ClickableScreen implements Runnable{
 	
@@ -28,6 +29,7 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 		app.start();
 	}
 
+	@Override
 	public void initAllObjects(ArrayList<Visible> viewObjects) {
 		addButtons();
 		progress = getProgress();
@@ -52,7 +54,8 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 		return getMove(b);
 	}
 
-	private MoveInterfaceRyan getMove(ButtonInterfaceRyan b) {
+	private MoveInterfaceRyan getMove(Buttons b) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -60,7 +63,7 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 	Placeholder until partner finishes implementation of ProgressInterface
 	*/
 	private ProgressInterfaceRyan getProgress() {	
-		return progress;
+		return new Progress();
 	}
 
 	private void addButtons() {
@@ -109,7 +112,7 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 	}
 
 	private ButtonInterfaceRyan getAButton() {
-		return null;
+		return new Buttons();
 	}
 
 	public void run() {
@@ -127,6 +130,7 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 		label.setText("");
 		playSequence();
 		changeText("Your turn.");
+		label.setText("");;
 		acceptingInput = true;
 		sequenceIndex = 0;
 	}
@@ -136,14 +140,14 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 		for(MoveInterfaceRyan m: move){
 			if(b != null){
 				b.dim();
-				b = m.getButton();
-				b.highlight();
-				int sleepTime = (int)(3000/roundNumber);
-				try{
-					Thread.sleep(sleepTime);
-				}catch(Exception e){
-					e.printStackTrace();
-				}
+			}
+			b = m.getButton();
+			b.highlight();
+			int sleepTime = (int) ((long)(2000*(2.0/(roundNumber+2))));
+			try{
+				Thread.sleep(sleepTime);
+			}catch(InterruptedException e){
+				e.printStackTrace();
 			}
 		}
 		b.dim();
