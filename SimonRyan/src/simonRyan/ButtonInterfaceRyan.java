@@ -8,7 +8,6 @@ import gui.Components.Clickable;
 public interface ButtonInterfaceRyan extends Clickable {
 	
 	static void setAction(Action a) {
-		// TODO Auto-generated method stub
 		
 	}
 
