@@ -6,25 +6,23 @@ import gui.Components.Action;
 import gui.Components.Clickable;
 
 public interface ButtonInterfaceRyan extends Clickable {
-
-	static Object getAButton() {
-		
-		return null;
-	}
 	
-	static void setAction(Action a){
+	static void setAction(Action a) {
+		// TODO Auto-generated method stub
 		
 	}
 
-	void setColor(Color blue);
-
-	void setX(int i);
-
-	void setY(int i);
+	void setColor(Color color);
 
 	void highlight();
 
 	void dim();
+
+	void setName(String string);
+
+	void setX(int i);
+
+	void setY(int i);
 
 
 }

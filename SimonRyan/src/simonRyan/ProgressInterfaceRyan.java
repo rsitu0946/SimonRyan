@@ -12,7 +12,4 @@ public interface ProgressInterfaceRyan extends Visible {
 	void setRound(int roundNumber);
 	
 	void setSequenceSize(int length);
-
-	
-
 }
