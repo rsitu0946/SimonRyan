@@ -8,6 +8,10 @@ public interface ProgressInterfaceRyan extends Visible {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	void setRound(int roundNumber);
+	
+	void setSequenceSize(int length);
 
 	
 

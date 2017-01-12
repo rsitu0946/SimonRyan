@@ -24,5 +24,7 @@ public interface ButtonInterfaceRyan extends Clickable {
 
 	void highlight();
 
+	void dim();
+
 
 }

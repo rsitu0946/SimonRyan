@@ -26,7 +26,6 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 		app.start();
 	}
 
-	@Override
 	public void initAllObjects(ArrayList<Visible> viewObjects) {
 		addButtons();
 		progress = getProgress();
@@ -66,7 +65,8 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 			b.setColor(Color.blue);
 			b.setX(300);
 			b.setY(300);
-			b.setAction(new Action(){
+			ButtonInterfaceRyan.setAction(new Action(){
+				
 				public void act(){
 					if(acceptingInput){
 						Thread blink = new Thread(new Runnable(){
@@ -120,7 +120,42 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 	private void nextRound() {
 		acceptingInput = false;
 		roundNumber++;
-		
+		progress.setRound(roundNumber);
+		move.add(randomMove());
+		progress.setSequenceSize(move.size());
+		changeText("Simon's turn.");
+		label.setText("");
+		playSequence();
+		changeText("Your turn.");
+		acceptingInput = true;
+		sequenceIndex = 0;
+	}
+
+	private void playSequence() {
+		ButtonInterfaceRyan b = null;
+		for(MoveInterfaceRyan m: move){
+			if(b != null){
+				b.dim();
+				b = m.getButton();
+				b.highlight();
+				int sleepTime = (int)(3000/roundNumber);
+				try{
+					Thread.sleep(sleepTime);
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		}
+		b.dim();
+	}
+
+	private void changeText(String string) {
+		try{
+			label.setText(string);
+			Thread.sleep(1000);
+		}catch(Exception e){
+			e.printStackTrace();
+		}	
 	}
 
 }
