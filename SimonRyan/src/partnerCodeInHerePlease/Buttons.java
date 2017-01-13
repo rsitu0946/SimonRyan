@@ -35,8 +35,8 @@ public class Buttons extends Component implements ButtonInterfaceRyan {
 		if(highlight){
 			g.setColor(Color.white);
 			Polygon p = new Polygon();		
-			int s = (int)(5/8.0 * WIDTH);
-			int t = (int)(1.0/5*HEIGHT)+4;
+			int s = (5/8 * WIDTH);
+			int t = (1/5*HEIGHT)+4;
 			p.addPoint(s-4, t-4);
 			p.addPoint(s+7, t-2);
 			p.addPoint(s+10, t);

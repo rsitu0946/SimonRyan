@@ -21,13 +21,12 @@ public class Progress extends Component implements ProgressInterfaceRyan {
 	}
 
 	public void setRound(int roundNumber) {
-		round = "Round"+roundNumber;
+		round = "Round: "+roundNumber;
 		update();
 	}
 
-
 	public void setSequenceSize(int length) {
-		sequence = "Sequence length"+length;
+		sequence = "Sequence length: "+length;
 	}
 	
 	public void gameOver() {
@@ -46,7 +45,6 @@ public class Progress extends Component implements ProgressInterfaceRyan {
 			String go = "GAME OVER!";
 			g.drawString(go, (WIDTH - fm.stringWidth(go))/2, 20);
 			g.drawString(sequence, (WIDTH - fm.stringWidth(sequence))/2, 40);
-
 		}else{
 			g.setColor(new Color(220,255,230));
 			g.fillRect(0, 0, WIDTH, HEIGHT);
