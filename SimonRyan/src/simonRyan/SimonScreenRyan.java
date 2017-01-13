@@ -80,19 +80,7 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 
 	public void run() {
 		changeText("");
-//		while(true){
-			nextRound();
-//			synchronized (this) {
-//
-//				try {
-//					wait();
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//
-//			}
-//		}
+		nextRound();
 	}
 
 
@@ -164,7 +152,7 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 			viewObjects.add(buttons[i]);
 		}
 		progress = getProgress();
-		label = new TextLabel(130,230,300,40,"Let's play Simon!");
+		label = new TextLabel(200,230,300,40,"Let's play Simon!");
 		sequence = new ArrayList<MoveInterfaceRyan>();
 		//add 2 moves to start
 		lastSelected = -1;
