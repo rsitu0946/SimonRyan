@@ -10,18 +10,50 @@ import gui.Components.Component;
 import simonRyan.ButtonInterfaceRyan;
 
 public class Buttons extends Component implements ButtonInterfaceRyan {
-	
+
 	private static final int WIDTH = 50;
 	private static final int HEIGHT = 50;
 	private Action action;
-	private String name;
 	private Color c;
 	private Color displayColor;
 	private boolean highlight;
-
+	
 	public Buttons() {
-		super(0, 0, WIDTH, HEIGHT);
-		// TODO Auto-generated constructor stub
+		super(0,0,WIDTH,HEIGHT);
+	}
+
+	public boolean isHovered(int x, int y) {
+		double distance = Math.sqrt(Math.pow(x-(getX()+WIDTH/2), 2)+Math.pow(y-(getY()+HEIGHT/2), 2));
+//		System.out.println(distance + " px away from "+name);
+		return distance < WIDTH/2;
+	}
+
+	public void act() {
+		action.act();
+	}
+
+
+
+	public void setColor(Color color) {
+		this.c = color;
+		displayColor = c;
+		update();
+	}
+
+	public void highlight() {
+		if(c != null) displayColor = c;
+		highlight = true;
+		update();
+	}
+
+	public void dim() {
+		displayColor = Color.gray;
+		highlight = false;
+		update();
+	}
+
+	public void setAction(Action action) {
+		this.action = action;
 	}
 
 	@Override
@@ -34,9 +66,10 @@ public class Buttons extends Component implements ButtonInterfaceRyan {
 		g.drawOval(0, 0, WIDTH-1, HEIGHT-1);
 		if(highlight){
 			g.setColor(Color.white);
-			Polygon p = new Polygon();		
-			int s = (5/8 * WIDTH);
-			int t = (1/5*HEIGHT)+4;
+			Polygon p = new Polygon();
+			
+			int s = (int)(5/8.0 * WIDTH);
+			int t = (int)(1.0/5*HEIGHT)+4;
 			p.addPoint(s-4, t-4);
 			p.addPoint(s+7, t-2);
 			p.addPoint(s+10, t);
@@ -48,39 +81,8 @@ public class Buttons extends Component implements ButtonInterfaceRyan {
 		
 	}
 
-	@Override
-	public void act() {
-		action.act();
-	}
-
-	@Override
-	public boolean isHovered(int x, int y) {
-		double distance = Math.sqrt(Math.pow(x-(getX()+WIDTH/2), 2)+Math.pow(y-(getY()+HEIGHT/2), 2));
-		return distance < WIDTH/2;
-	}
-
-	@Override
-	public void setColor(Color color) {
-		this.c = color;
-		displayColor = c;
-		update();
-	}
-
-	@Override
-	public void highlight() {
-		if(c != null) displayColor = c;
-		highlight = true;
-		update();
-	}
-
-	@Override
-	public void dim() {
-		displayColor = Color.gray;
-		highlight = false;
-		update();
-	}
-
-	@Override
+	
+	private String name;
 	public void setName(String s){
 		this.name = s;
 	}
@@ -100,10 +102,6 @@ public class Buttons extends Component implements ButtonInterfaceRyan {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void setAction(Action a) {
-		this.action = a;
-	}
-
+	
 }
+

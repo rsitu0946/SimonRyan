@@ -6,19 +6,19 @@ public class SimonGameRyan extends GUIApplication {
 
 	public SimonGameRyan(int width, int height) {
 		super(width, height);
-		
+		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public void initScreen() {
-		SimonScreenRyan ssr = 
-				new SimonScreenRyan(getWidth(),getHeight());
-		setScreen(ssr);
+		SimonScreenRyan s = new SimonScreenRyan(getWidth(), getHeight());
+		setScreen(s);
 	}
-	
+
 	public static void main(String[] args) {
-		SimonGameRyan sgr = new SimonGameRyan(800,500);
-		Thread game = new Thread(sgr);
-		game.start();
+		SimonGameRyan game = new SimonGameRyan(800, 500);
+		Thread app = new Thread(game);
+		app.start();
 	}
 
 }
