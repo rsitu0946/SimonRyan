@@ -21,6 +21,9 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 	private boolean acceptingInput;
 	private int sequenceIndex;
 	private int lastSelected;
+	
+	private int Buttonx;
+	private int Buttony;
 
 	public SimonScreenRyan(int width, int height) {
 		super(width, height);
@@ -62,7 +65,8 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 	}
 
 	private ButtonInterfaceRyan getAButton() {
-		return new Buttons();
+		Buttony += 50;
+		return new Buttons(Buttonx, Buttony);
 	}
 
 	private void changeText(String string) {
@@ -109,6 +113,8 @@ public class SimonScreenRyan extends ClickableScreen implements Runnable{
 
 	@Override
 	public void initAllObjects(ArrayList<Visible> viewObjects) {
+		Buttonx = 100;
+		Buttony = 102;
 		Color[] colors = {Color.red, Color.blue, new Color(240,160,70), new Color(20,255,140), Color.yellow, new Color(180,90,210)};
 		String[] names = {"RED", "BLUE", "ORANGE", "GREEN", "YELLOW", "PURPLE"};
 		int buttonCount = 6;

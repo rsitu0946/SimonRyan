@@ -18,8 +18,8 @@ public class Buttons extends Component implements ButtonInterfaceRyan {
 	private Color displayColor;
 	private boolean highlight;
 	
-	public Buttons() {
-		super(0,0,WIDTH,HEIGHT);
+	public Buttons(int x, int y) {
+		super(x,y,WIDTH,HEIGHT);
 	}
 
 	public boolean isHovered(int x, int y) {
